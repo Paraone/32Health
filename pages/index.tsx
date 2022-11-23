@@ -21,7 +21,7 @@ export interface iData {
   inAmt: string,
   oonAmt: string,
   rollover: string,
-  cuantity: string,
+  quantity: string,
   length: string,
   startDate: string,
   endDate: string
@@ -48,7 +48,7 @@ const initialData: iData = {
   inAmt: '',
   oonAmt: '',
   rollover: '',
-  cuantity: DEFAULT_QUANTITY,
+  quantity: DEFAULT_QUANTITY,
   length: DEFAULT_LENGTH,
   startDate: '',
   endDate: ''
@@ -261,9 +261,9 @@ const Home: FC = () => {
                   onChange={inputOnChange} 
                   type="radio" 
                   id="individual" 
-                  name="cuantity" 
+                  name="quantity" 
                   value="individual" 
-                  checked={data.cuantity === 'individual'}
+                  checked={data.quantity === 'individual'}
                 />
                 <label htmlFor="individual">Individual</label>
               </div>
@@ -273,9 +273,9 @@ const Home: FC = () => {
                   onChange={inputOnChange} 
                   type="radio" 
                   id="family" 
-                  name="cuantity" 
+                  name="quantity" 
                   value="family" 
-                  checked={data.cuantity === 'family'}
+                  checked={data.quantity === 'family'}
                 />
                 <label htmlFor="family">Family</label>
               </div>

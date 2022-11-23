@@ -17,7 +17,7 @@ type Data = {
   inAmt: string,
   oonAmt: string,
   rollover: string,
-  cuantity: string,
+  quantity: string,
   length: string,
   startDate: string,
   endDate: string
@@ -36,7 +36,7 @@ export default function handler(
 
   if (method?.toUpperCase() === "GET") {
     console.log('retrieving saved data');
-    const savedData = {"planName":"My plan","coinsurancePlan":"coinsurancePlan","ppoPlan":"ppoPlan","extendedMaximum":"checked","ppoSplitMaximum":"checked","rolloverChecked":"checked","expandingMaximum":"checked","amtMaxAr":"123","yr1ExpMax":"123","yr2ExpMax":"123","extMaxLow":"123","extMaxHigh":"123","inAmt":"123","oonAmt":"123","rollover":"123","cuantity":"individual","length":"annual","startDate":"2022-11-24","endDate":"2022-11-30"}
+    const savedData = {"planName":"My plan","coinsurancePlan":"coinsurancePlan","ppoPlan":"ppoPlan","extendedMaximum":"checked","ppoSplitMaximum":"checked","rolloverChecked":"checked","expandingMaximum":"checked","amtMaxAr":"123","yr1ExpMax":"123","yr2ExpMax":"123","extMaxLow":"123","extMaxHigh":"123","inAmt":"123","oonAmt":"123","rollover":"123","quantity":"individual","length":"annual","startDate":"2022-11-24","endDate":"2022-11-30"}
     res.status(200).json(savedData);
   }
 }
