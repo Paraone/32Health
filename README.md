@@ -12,7 +12,7 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+The frontend for the app exists in `pages/index.tsx`.
 
 API routes can be accessed on [http://localhost:3000/api/policies](http://localhost:3000/api/policies)
 There are get and post routes set up for testing frontend calls.

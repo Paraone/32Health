@@ -73,6 +73,10 @@ button:disabled {
   margin: 0 auto;
 }
 
+.dates input {
+  margin-left: 5px;
+}
+
 * {
   box-sizing: border-box;
 }
