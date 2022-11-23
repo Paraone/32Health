@@ -74,7 +74,8 @@ async function postData(url = '', data: iData) {
 async function getData(url = '') {
   const response = await fetch(url)
   console.log({response})
-  const savedData = window.localStorage.getItem('policy') || '{}';
+  const savedData = window.localStorage.getItem('policy') || '';
+  if (!savedData) return;
   return JSON.parse(savedData);
 }
 
@@ -358,7 +359,7 @@ const Home: FC = () => {
               />
               <label htmlFor="extended_maximum">Extended Maximum</label>
             </div>
-            <div>
+            <div className="ext-max-values">
               <span>%</span>
               <input 
                 onBlur={logUserInteraction} 
@@ -421,10 +422,10 @@ const Home: FC = () => {
           </div>
         </div>
       </div>
-      <div>
+      <div className="user-steps">
         {steps.length > 1 &&
 
-          <div>
+          <div className="expanding-max">
             User Steps:
             {
               steps.map(({ lastStep }, index) => {

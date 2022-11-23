@@ -24,19 +24,37 @@ button {
   border-radius: 3px;
   padding: 10px 40px;
   color: white;
-  background-color: lightblue;
+  background-color: rgb(80, 116, 235);
   font-size: 16px;
   line-height: 24px;
+  cursor: pointer;
+  transition: background-color .2s ease-in
+}
+
+button:hover {
+  background-color: #61dafb;
 }
 
 button:disabled {
-  background-color: rgb(86, 120, 132);
+  cursor: unset;
+  background-color: grey;
 }
 
 .maximums {
+  color: green;
   font-weight: 800;
   box-shadow: 3px 3px 10px grey;
   padding: 10px 30px;
+}
+
+.ext-max-values > span,
+.ext-max-values > input {
+  margin-left: 10px;
+}
+
+.user-steps {
+  width: 60%;
+  text-align: left;
 }
 
 .policy-length,
