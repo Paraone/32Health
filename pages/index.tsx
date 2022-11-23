@@ -88,17 +88,24 @@ const Home: FC = () => {
   const month = date.getMonth() + 1;
   const day = date.getDay();
   const year = date.getFullYear();
-  const currentDate = `${year}-${month}-${day}`
+  const currentDate = `${year}-${month}-${day}`;
+  const disableSave = steps.length === 1 || steps[steps.length - 1].lastStep === 'loaded saved data.'
 
   const loadData = async () => {
     const savedData = await getData('/api/policies');
     setData(savedData);
-  }
+    setSteps([
+      ...steps,
+    {
+      data: savedData,
+      lastStep: 'loaded saved data.'
+    }]);
+  };
 
   const saveData = async () => {
     const postedData = await postData('api/policies', data);
     console.log({postedData});
-  }
+  };
 
   const inputOnChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value, type, name} = e.currentTarget;
@@ -107,21 +114,21 @@ const Home: FC = () => {
     const newData = { ...data };
     newData[name as keyof iData] = value;
     setData(newData)
-  }
+  };
 
   const selectOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value, name } = e.currentTarget;
     const newData = {...data};
     newData[name as keyof iData] = value;
     setData(newData);
-  }
+  };
 
   const checkboxOnChange = (e: any) => {
     const { checked, name } = e.currentTarget;
     const newData = { ...data };
     newData[name as keyof iData] = checked ? 'checked' : '';
     setData(newData);
-  }
+  };
 
   const logUserInteraction = (e: any) => {
     const { value, name, checked, type } = e.currentTarget;
@@ -133,9 +140,9 @@ const Home: FC = () => {
           data,
           lastStep: `Changed ${name} to ${value}`
         }
-      ])
+      ]);
     } 
-  }
+  };
 
   const undo = () => {
     console.log('undo last step');
@@ -145,7 +152,7 @@ const Home: FC = () => {
     const lastStep = newSteps[newSteps.length - 1];
     setData(lastStep.data);
     setSteps(newSteps);
-  }
+  };
 
   return (
     <div className="App">
@@ -180,7 +187,7 @@ const Home: FC = () => {
           <option value="macPlan">MAC Plan</option>
           <option value="passivePpoPlan">Passive PPO Plan</option>
         </select>
-        <button onClick={saveData}>Save</button>
+        <button onClick={saveData} disabled={disableSave}>Save</button>
       </div>
       <div className="row dates">
         <span>

@@ -29,6 +29,10 @@ button {
   line-height: 24px;
 }
 
+button:disabled {
+  background-color: rgb(86, 120, 132);
+}
+
 .maximums {
   font-weight: 800;
   box-shadow: 3px 3px 10px grey;
