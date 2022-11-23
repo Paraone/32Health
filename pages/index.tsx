@@ -77,7 +77,6 @@ async function postData(url = '', data: iData) {
 
 async function getData(url = '') {
   const response = await fetch(url)
-  console.log({response})
   const savedData = window.localStorage.getItem('policy') || '';
   if (!savedData) return;
   return JSON.parse(savedData);
@@ -91,7 +90,7 @@ const Home: FC = () => {
   }]);
   const date = new Date();
   const month = date.getMonth() + 1;
-  const day = date.getDay() + 20;
+  const day = date.getDate();
   const year = date.getFullYear();
   const currentDate = `${year}-${month}-${day}`;
   const disableSave = steps.length === 1 || steps[steps.length - 1].lastStep.includes('saved data')
@@ -103,7 +102,7 @@ const Home: FC = () => {
       ...steps,
     {
       data: savedData,
-      lastStep: 'loaded saved data.'
+      lastStep: steps.length + '. loaded saved data.'
     }]);
   };
 
@@ -114,7 +113,7 @@ const Home: FC = () => {
       ...steps,
       {
         data,
-        lastStep: 'saved data.'
+        lastStep: steps.length + '. saved data.'
       }
     ]);
   };
