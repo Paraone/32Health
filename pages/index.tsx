@@ -143,14 +143,16 @@ const Home: FC = () => {
   };
 
   const logUserInteraction = (e: any) => {
-    const { value, name, checked, type } = e.currentTarget;
+    const { value, name, checked, type, id } = e.currentTarget;
     const lastStep = steps[steps.length - 1];
-    if (lastStep.data[name as keyof iData] !== value) {
+    const isCheckbox = type === 'checkbox';
+    const checkedValue = checked ? 'checked' : '';
+    if (lastStep.data[name as keyof iData] !== (isCheckbox ? checkedValue : value)) {
       setSteps([
         ...steps,
         {
           data,
-          lastStep: `Changed ${name} to ${type === 'checkbox' ? checked : value}`
+          lastStep: `${steps.length}. Changed ${id} to ${isCheckbox ? checked : value}`
         }
       ]);
     } 
@@ -176,6 +178,7 @@ const Home: FC = () => {
           type="text" 
           value={data.planName} 
           name="planName" 
+          id="Plan Name"
           placeholder="Type Plan Name Here..." 
           required
         /> 
@@ -183,6 +186,7 @@ const Home: FC = () => {
           onBlur={logUserInteraction} 
           onChange={selectOnChange} 
           value={data.coinsurancePlan} 
+          id="Coinsurance Plan"
           name="coinsurancePlan"
         >
           <option value="coinsurancePlan">Coinsurance Plan</option>
@@ -193,6 +197,7 @@ const Home: FC = () => {
           onBlur={logUserInteraction} 
           onChange={selectOnChange} 
           value={data.ppoPlan} 
+          id="PPO Plan"
           name="ppoPlan"
         >
           <option value="ppoPlan">PPO Plan</option>
@@ -208,9 +213,11 @@ const Home: FC = () => {
             onBlur={logUserInteraction} 
             onChange={inputOnChange} 
             name="startDate" 
+            id="Start Date"
             type="date" 
             value={data.startDate} 
             min={currentDate}
+            max={data.endDate}
           />
         </span>
         <span>
@@ -219,9 +226,10 @@ const Home: FC = () => {
             onBlur={logUserInteraction} 
             onChange={inputOnChange} 
             name="endDate" 
+            id="End Date"
             type="date" 
             value={data.endDate} 
-            min={data.startDate}
+            min={data.startDate || currentDate}
           />
         </span>
       </div>
@@ -237,7 +245,7 @@ const Home: FC = () => {
                   onBlur={logUserInteraction} 
                   onChange={inputOnChange} 
                   type="radio" 
-                  id="annual" 
+                  id="Policy Length" 
                   name="length" 
                   value="annual" 
                   checked={data.length === 'annual'}
@@ -249,7 +257,7 @@ const Home: FC = () => {
                   onBlur={logUserInteraction} 
                   onChange={inputOnChange} 
                   type="radio" 
-                  id="lifetime" 
+                  id="Policy Length" 
                   name="length" 
                   value="lifetime" 
                   checked={data.length === 'lifetime'}
@@ -260,6 +268,7 @@ const Home: FC = () => {
                 onBlur={logUserInteraction} 
                 onChange={inputOnChange} 
                 name="amtMaxAr" 
+                id="Amount Max Ar."
                 type="number" 
                 step="0.01" 
                 value={data.amtMaxAr} 
@@ -272,7 +281,7 @@ const Home: FC = () => {
                   onBlur={logUserInteraction} 
                   onChange={inputOnChange} 
                   type="radio" 
-                  id="individual" 
+                  id="Policy Quantity" 
                   name="quantity" 
                   value="individual" 
                   checked={data.quantity === 'individual'}
@@ -284,7 +293,7 @@ const Home: FC = () => {
                   onBlur={logUserInteraction} 
                   onChange={inputOnChange} 
                   type="radio" 
-                  id="family" 
+                  id="Policy Quantity" 
                   name="quantity" 
                   value="family" 
                   checked={data.quantity === 'family'}
@@ -298,7 +307,7 @@ const Home: FC = () => {
                   type="checkbox" 
                   onBlur={logUserInteraction} 
                   onChange={checkboxOnChange} 
-                  id="rollover" 
+                  id="Rollover" 
                   name="rolloverChecked" 
                   value="value" 
                   checked={!!data.rolloverChecked}
@@ -312,6 +321,7 @@ const Home: FC = () => {
                   type="number" 
                   step="0.01" 
                   name="rollover" 
+                  id="Rollover Percentage"
                   value={data.rollover} 
                   placeholder="Rollover %" 
                   disabled={!data.rolloverChecked}
@@ -325,7 +335,7 @@ const Home: FC = () => {
                 type="checkbox" 
                 onBlur={logUserInteraction} 
                 onChange={checkboxOnChange} 
-                id="expanding_maximum" 
+                id="Expanding Maximum" 
                 name="expandingMaximum" 
                 value="expanding_maximum" 
                 checked={!!data.expandingMaximum}
@@ -337,6 +347,7 @@ const Home: FC = () => {
                 onBlur={logUserInteraction} 
                 onChange={inputOnChange} 
                 name="yr1ExpMax" 
+                id="Year 1 Expanding Maximum"
                 type="number" 
                 step="0.01" 
                 value={data.yr1ExpMax} 
@@ -347,6 +358,7 @@ const Home: FC = () => {
                 onBlur={logUserInteraction} 
                 onChange={inputOnChange} 
                 name="yr2ExpMax" 
+                id="Year 2 Expanding Maximum"
                 type="number" 
                 step="0.01" 
                 value={data.yr2ExpMax} 
@@ -363,7 +375,7 @@ const Home: FC = () => {
                 type="checkbox" 
                 onBlur={logUserInteraction} 
                 onChange={checkboxOnChange} 
-                id="extended_maximum" 
+                id="Extended Maximum" 
                 name="extendedMaximum" 
                 value="extended_maximum" 
                 checked={!!data.extendedMaximum}
@@ -379,12 +391,14 @@ const Home: FC = () => {
                 step="0.01" 
                 value={data.extMaxLow} 
                 name="extMaxLow" 
+                id="Extended Maximum Low"
                 placeholder="Enter" 
                 disabled={!data.extendedMaximum}
               />
               <span>Up to</span>
               <input 
                 name='extMaxHigh' 
+                id="Extended Maximum High"
                 onBlur={logUserInteraction} 
                 onChange={inputOnChange} 
                 type="number" 
@@ -401,7 +415,7 @@ const Home: FC = () => {
                 onBlur={logUserInteraction} 
                 onChange={checkboxOnChange} 
                 type="checkbox" 
-                id="ppo_split_maximum" 
+                id="PPO Split Maximum" 
                 name="ppoSplitMaximum" 
                 value="ppo_split_maximum" 
                 checked={!!data.ppoSplitMaximum}
@@ -413,6 +427,7 @@ const Home: FC = () => {
                 onBlur={logUserInteraction} 
                 onChange={inputOnChange} 
                 name="inAmt" 
+                id="PPO Split Max IN"
                 type="number" 
                 step="0.01" 
                 value={data.inAmt} 
@@ -421,6 +436,7 @@ const Home: FC = () => {
               />
               <input 
                 onBlur={logUserInteraction} 
+                id="PPO Split Max OON"
                 onChange={inputOnChange} 
                 name="oonAmt" 
                 type="number" 
