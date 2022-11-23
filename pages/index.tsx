@@ -90,7 +90,7 @@ const Home: FC = () => {
   const day = date.getDay();
   const year = date.getFullYear();
   const currentDate = `${year}-${month}-${day}`;
-  const disableSave = steps.length === 1 || steps[steps.length - 1].lastStep === 'loaded saved data.'
+  const disableSave = steps.length === 1 || steps[steps.length - 1].lastStep.includes('saved data')
 
   const loadData = async () => {
     const savedData = await getData('/api/policies');
@@ -106,6 +106,13 @@ const Home: FC = () => {
   const saveData = async () => {
     const postedData = await postData('api/policies', data);
     console.log({postedData});
+    setSteps([
+      ...steps,
+      {
+        data,
+        lastStep: 'saved data.'
+      }
+    ]);
   };
 
   const inputOnChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -139,7 +146,7 @@ const Home: FC = () => {
         ...steps,
         {
           data,
-          lastStep: `Changed ${name} to ${value}`
+          lastStep: `Changed ${name} to ${type === 'checkbox' ? checked : value}`
         }
       ]);
     } 
