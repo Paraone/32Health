@@ -1,27 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { iData } from '../index';
 
-type Data = {
-  planName: string,
-  coinsurancePlan: string,
-  ppoPlan: string,
-  extendedMaximum: string,
-  ppoSplitMaximum: string,
-  rolloverChecked: string,
-  expandingMaximum: string,
-  amtMaxAr: string,
-  yr1ExpMax: string,
-  yr2ExpMax: string,
-  extMaxLow: string,
-  extMaxHigh: string,
-  inAmt: string,
-  oonAmt: string,
-  rollover: string,
-  quantity: string,
-  length: string,
-  startDate: string,
-  endDate: string
-}
+type Data = iData
 
 export default function handler(
   req: NextApiRequest,
